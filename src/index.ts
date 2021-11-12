@@ -44,8 +44,10 @@ client.on("interactionCreate", async interaction => {
   }
 
   try {
-    let replyMessage = (await command.execute(interaction)) || "Done!";
-    return interaction.reply(replyMessage);
+    let replyMessage = await command.execute(interaction);
+    if (replyMessage) {
+      interaction.reply(replyMessage);
+    }
   } catch (error: any) {
     console.error(error);
     return interaction.reply({

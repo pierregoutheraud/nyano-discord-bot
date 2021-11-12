@@ -26,6 +26,8 @@ const execute = async (interaction: CommandInteraction) => {
     throw new Error("No address.");
   }
 
+  await interaction.reply("Sending...");
+
   const resAccountBalance = await rpc.account_balance(account.address);
 
   if (!resAccountBalance) {
@@ -51,7 +53,11 @@ const execute = async (interaction: CommandInteraction) => {
     secretKey,
   });
 
-  return `You sent \`${balance} nyano\` to \`${toAddress}\`.`;
+  await interaction.editReply(
+    `You sent \`${balance} nyano\` to \`${toAddress}\`.`
+  );
+
+  return;
 };
 
 export { data, execute };

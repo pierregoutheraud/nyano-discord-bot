@@ -50,6 +50,8 @@ const execute = async (interaction: CommandInteraction) => {
     throw new Error("User not found.");
   }
 
+  await interaction.reply("Sending...");
+
   const { address: fromAddress, secretKey } = fromAccount;
   const { address: toAddress } = toAccount;
 
@@ -60,7 +62,11 @@ const execute = async (interaction: CommandInteraction) => {
     secretKey,
   });
 
-  return `You sent \`${amount} nyano\` to @${username}.`;
+  await interaction.editReply(
+    `You sent \`${amount} nyano\` to \`@${username}\``
+  );
+
+  return;
 };
 
 export { data, execute };

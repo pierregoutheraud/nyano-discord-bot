@@ -2,8 +2,6 @@ import { megaToRaw, rawToMega } from "nano-unit-converter";
 
 const NYANO_RATIO = 1000000;
 
-/* ------------ GENERIC CONVERT ------------ */
-
 export function rawToBaseStr(amountRAW: string): string | null {
   try {
     return rawToNyano(amountRAW);
@@ -94,8 +92,6 @@ export function formatBase(
     useGrouping,
   });
 }
-
-/* ------------------------------------ */
 
 export function rawAdd(n1: string, n2: string, pad: number = 0) {
   return (BigInt(n1) + BigInt(n2)).toString().padStart(pad, "0");

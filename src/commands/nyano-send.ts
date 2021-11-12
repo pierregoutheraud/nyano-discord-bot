@@ -34,6 +34,8 @@ const execute = async (interaction: CommandInteraction) => {
     throw new Error("Wrong options.");
   }
 
+  await interaction.reply("Sending...");
+
   const { address: fromAddress, publicKey, secretKey } = account;
 
   await receiveAllPending({ address: fromAddress, publicKey, secretKey });
@@ -51,7 +53,11 @@ const execute = async (interaction: CommandInteraction) => {
     secretKey,
   });
 
-  return `You sent \`${amount} nyano\` to \`${toAddress}\`.`;
+  await interaction.editReply(
+    `You sent \`${amount} nyano\` to \`${toAddress}\`.`
+  );
+
+  return;
 };
 
 export { data, execute };
