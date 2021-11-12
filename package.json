@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "main": "build/src/index.js",
   "license": "MIT",
+  "engines": {
+    "node": ">=16.13.0"
+  },
   "scripts": {
     "start": "node build/src/index.js",
     "dev-start": "tsc && node build/src/index.js",
