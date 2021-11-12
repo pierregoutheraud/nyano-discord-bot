@@ -1,4 +1,4 @@
-import { CommandInteraction } from "discord.js";
+import { ClientUser, CommandInteraction } from "discord.js";
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { getAccount } from "../accounts";
 import { baseToRaw } from "../helpers/currency.helpers";
@@ -34,13 +34,15 @@ const execute = async (interaction: CommandInteraction) => {
     throw new Error("Wrongs options.");
   }
 
+  const user = userOption.user as ClientUser;
+
   const amountRAW = baseToRaw(amount);
 
   if (!amountRAW) {
     throw new Error("Amount raw incorrect.");
   }
 
-  const userId = userOption.value as string;
+  const { id: userId, username } = user;
 
   const toAccount = await getAccount(userId);
 
@@ -58,7 +60,7 @@ const execute = async (interaction: CommandInteraction) => {
     secretKey,
   });
 
-  return `\`${amount} nyano\` sent to \`${toAddress}\`.`;
+  return `You sent \`${amount} nyano\` to @${username}.`;
 };
 
 export { data, execute };
