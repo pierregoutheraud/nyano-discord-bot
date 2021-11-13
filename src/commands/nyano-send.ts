@@ -30,7 +30,7 @@ const execute = async (interaction: CommandInteraction) => {
   const toAddress = options.get("address")?.value as string;
   const amount = options.get("amount")?.value as number;
 
-  if (!toAddress || !amount) {
+  if (!toAddress || !amount || isNaN(amount)) {
     throw new Error("Wrong options.");
   }
 
