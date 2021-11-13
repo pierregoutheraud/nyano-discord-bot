@@ -50,10 +50,15 @@ client.on("interactionCreate", async interaction => {
     }
   } catch (error: any) {
     console.error(error);
-    return interaction.reply({
-      content: `There was an error while executing this command.\n${error.toString()}`,
-      ephemeral: true,
-    });
+
+    const errorMessage = `There was an error while executing this command.\n${error.toString()}`;
+
+    // ephemeral true => message only the user can see
+    if (interaction.replied) {
+      interaction.editReply({ content: errorMessage });
+    } else {
+      interaction.reply({ content: errorMessage, ephemeral: false });
+    }
   }
 });
 

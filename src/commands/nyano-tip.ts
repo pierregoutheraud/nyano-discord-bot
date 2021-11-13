@@ -42,7 +42,7 @@ const execute = async (interaction: CommandInteraction) => {
     throw new Error("Amount raw incorrect.");
   }
 
-  const { id: userId, username } = user;
+  const { id: userId } = user;
 
   const toAccount = await getAccount(userId);
 
