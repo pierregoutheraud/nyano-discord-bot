@@ -1,8 +1,9 @@
-import { Client, Collection, Intents, CommandInteraction } from "discord.js";
-import { SlashCommandBuilder } from "@discordjs/builders";
-import { DISCORD_TOKEN } from "../config.json";
 import fs from "fs";
 import path from "path";
+import { Client, Collection, Intents, CommandInteraction } from "discord.js";
+import { SlashCommandBuilder } from "@discordjs/builders";
+import "./logger";
+import { DISCORD_TOKEN } from "../config.json";
 
 export interface Command {
   data: SlashCommandBuilder;
