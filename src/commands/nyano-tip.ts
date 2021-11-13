@@ -62,9 +62,7 @@ const execute = async (interaction: CommandInteraction) => {
     secretKey,
   });
 
-  await interaction.editReply(
-    `You sent \`${amount} nyano\` to \`@${username}\``
-  );
+  await interaction.editReply(`You sent \`${amount} nyano\` to <@${userId}>`);
 
   return;
 };
