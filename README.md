@@ -2,9 +2,27 @@
 
 <img src="https://i.imgur.com/zIqSbve.png" width="300">
 
+# Nyano introduction
+
+Nyano is a new representation of nano, not a new coin.<br />
+`1 nano = 1,000,000 nyano`
+
 # Install
 
+Use this link to install the bot on your Discord server:
 https://discord.com/api/oauth2/authorize?client_id=907983349954535465&permissions=0&scope=bot%20applications.commands
+
+# How does it work?
+
+Type `/` in the discord server to see the commands.
+
+## All commands
+
+`/nyano-address` Display your nyano address.<br/>
+`/nyano-balance` Display your nyano balance.<br/>
+`/nyano-send {address} {amount}` Send nyano to an address.<br/>
+`/nyano-send-max {address}` Send all your nyano to an address.<br/>
+`/nyano-tip {username} {amount}` Tip a discord user.<br/>
 
 # Development
 
