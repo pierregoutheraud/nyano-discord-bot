@@ -1,8 +1,9 @@
 import { ClientUser, CommandInteraction } from "discord.js";
 import { SlashCommandBuilder } from "@discordjs/builders";
-import { getAccount } from "../accounts";
-import { baseToRaw } from "../helpers/currency.helpers";
+import { getAccount, User } from "../accounts";
+import { baseToRaw, rawAdd } from "../helpers/currency.helpers";
 import { sendTransaction } from "../rpc";
+import { rdb } from "../database/firebase";
 
 const data = new SlashCommandBuilder()
   .setName("nyano-tip")
@@ -60,6 +61,12 @@ const execute = async (interaction: CommandInteraction) => {
     toAddress,
     amountRAW,
     secretKey,
+  });
+
+  // Will be usefull to create a leaderboard of biggest tippers
+  rdb.ref(`users/${fromUserId}/tipped`).transaction((tipped: string | null) => {
+    const prevTipped = tipped || "0";
+    return rawAdd(prevTipped, amountRAW);
   });
 
   await interaction.editReply(`You sent \`${amount} nyano\` to <@${userId}>`);

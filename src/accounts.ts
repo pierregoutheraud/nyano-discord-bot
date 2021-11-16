@@ -2,6 +2,11 @@ import * as nanocurrency from "nanocurrency";
 import { NANO_SEED } from "../config.json";
 import { rdb } from "./database/firebase";
 
+export interface User {
+  index: number;
+  tipped: string;
+}
+
 export async function getAccount(userId: string) {
   const index = await getWalletIndex(userId);
 
@@ -22,7 +27,7 @@ export async function getAccount(userId: string) {
 
 async function getWalletIndex(userId: string) {
   try {
-    const snap = await rdb.ref(`users/${userId}`).once("value");
+    const snap = await rdb.ref(`users/${userId}/index`).once("value");
 
     if (snap.exists()) {
       return snap.val();
@@ -38,7 +43,10 @@ async function getWalletIndex(userId: string) {
     const newIndex = result.snapshot.val();
 
     // Store user index
-    await rdb.ref(`users/${userId}`).set(newIndex);
+    await rdb.ref(`users/${userId}`).set({
+      index: newIndex,
+      tipped: "0",
+    });
     return newIndex;
   } catch (e) {
     throw new Error("Error with your wallet index.");
