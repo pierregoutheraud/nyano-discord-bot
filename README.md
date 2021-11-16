@@ -26,6 +26,14 @@ Type `/` in the discord server to see the commands.
 
 # Development
 
+## Database
+
+The idea is to have one seed for all discord users. This seed is not stored in database and only set in `config.json` file.<br />
+Each user gets a new index and thus one account of this wallet.<br />
+Firebase is used to store every users indexes and a global index which is incremented for every new user.
+
+<img src="https://i.imgur.com/1R5pqmi.png" width="300"><br />
+
 ## Run script
 
 1. Copy `example.config.json` into a new file named `config.json` by running `cp example.config.json config.json` and fill in you configuration variables.
