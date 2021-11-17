@@ -51,8 +51,7 @@ client.on("interactionCreate", async interaction => {
     }
   } catch (error: any) {
     console.error(error);
-
-    const errorMessage = `There was an error while executing this command.\n${error.toString()}`;
+    const errorMessage = error.message || error.toString();
 
     // ephemeral true => message only the user can see
     if (interaction.replied) {

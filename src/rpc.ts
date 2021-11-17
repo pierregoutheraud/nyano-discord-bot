@@ -28,9 +28,23 @@ export async function sendTransaction({
     `sendTransaction ${amountRAW} from ${fromAddress} to ${toAddress}`
   );
 
-  const accountInfo = await rpc.account_info(fromAddress, {
-    representative: true,
-  });
+  let accountInfo;
+
+  try {
+    accountInfo = await rpc.account_info(fromAddress, {
+      representative: true,
+    });
+  } catch (e) {
+    throw new Error("You have `0 nyano.`");
+  }
+
+  if (!accountInfo) {
+    throw new Error("You have `0 nyano.`");
+  }
+
+  if (!accountInfo) {
+    throw new Error("No nano in your account.");
+  }
 
   const { balance: balanceRAW, representative, frontier } = accountInfo;
 
@@ -40,6 +54,10 @@ export async function sendTransaction({
 
   if (!representative) {
     throw new Error("No representative.");
+  }
+
+  if (balanceRAW === "0") {
+    throw new Error("You have `0 nyano.`");
   }
 
   const newBalanceRAW = rawSub(balanceRAW, amountRAW);
