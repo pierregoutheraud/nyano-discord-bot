@@ -47,20 +47,23 @@ client.on("interactionCreate", async interaction => {
   try {
     let replyMessage = await command.execute(interaction);
     if (replyMessage) {
-      interaction.reply(replyMessage);
+      reply(interaction, replyMessage);
     }
   } catch (error: any) {
     console.error(error);
     const errorMessage = error.message || error.toString();
-
-    // ephemeral true => message only the user can see
-    if (interaction.replied) {
-      interaction.editReply({ content: errorMessage });
-    } else {
-      interaction.reply({ content: errorMessage, ephemeral: false });
-    }
+    reply(interaction, errorMessage);
   }
 });
+
+function reply(interaction: CommandInteraction, message: string) {
+  if (interaction.replied) {
+    interaction.editReply({ content: message });
+  } else {
+    // ephemeral true => message only the user can see
+    interaction.reply({ content: message, ephemeral: false });
+  }
+}
 
 // Login to Discord with your client's token
 client.login(DISCORD_TOKEN);
