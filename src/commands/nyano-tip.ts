@@ -2,7 +2,7 @@ import { ClientUser, CommandInteraction } from "discord.js";
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { getAccount, User } from "../accounts";
 import { baseToRaw, rawAdd } from "../helpers/currency.helpers";
-import { sendTransaction } from "../rpc";
+import { receiveAllPending, sendTransaction } from "../rpc";
 import { rdb } from "../database/firebase";
 
 const data = new SlashCommandBuilder()
@@ -53,8 +53,10 @@ const execute = async (interaction: CommandInteraction) => {
 
   await interaction.reply("Sending...");
 
-  const { address: fromAddress, secretKey } = fromAccount;
+  const { address: fromAddress, secretKey, publicKey } = fromAccount;
   const { address: toAddress } = toAccount;
+
+  await receiveAllPending({ address: fromAddress, publicKey, secretKey });
 
   await sendTransaction({
     fromAddress,
