@@ -1,7 +1,6 @@
 import { DATABASE_URL } from "../../config.json";
 import path from "path";
-
-var admin = require("firebase-admin");
+import admin from "firebase-admin";
 
 // Fetch the service account key JSON file contents
 var serviceAccount = require(path.join(
